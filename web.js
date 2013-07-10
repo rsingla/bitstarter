@@ -3,13 +3,13 @@ var fs = require('fs');
 
 var app = express.createServer(express.logger());
 
-var filedata = fs.readFile('index.html',  function (err,data) {
+var buffer = new Buffer( fs.readFile('index.html',  function (err,data) {
   if (err) throw err;
-  console.log('Error while reading from Index.html');
-});
+  console.log('Error while reading from Index.html'); 
+}));
 
 app.get('/', function(request, response) {
-  response.send(filedata);
+  response.send(buffer);
 });
 
 var port = process.env.PORT || 5000;
