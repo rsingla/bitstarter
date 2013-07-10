@@ -3,10 +3,15 @@ var fs = require('fs');
 
 var app = express.createServer(express.logger());
 
-var buffer = new Buffer( fs.readFile('index.html',  function (err,data) {
-  if (err) throw err;
-  console.log('Error while reading from Index.html'); 
-}));
+var buffer = null;
+
+fs.readFile('Index.html', 'utf8', function (err,data) {
+  if (err) {
+    return console.log(err);
+  }
+  console.log(data);
+  buffer = new Buffer(data);
+});
 
 app.get('/', function(request, response) {
   response.send(buffer);
